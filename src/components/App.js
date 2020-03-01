@@ -5,7 +5,6 @@ import items from '../sample-data'
 import Item from './Item'
 import base from '../base'
 
-
 class App extends React.Component {
 
   //state
@@ -68,6 +67,7 @@ class App extends React.Component {
     const order = { ...this.state.order };
     delete order[key];
     this.setState({ order });
+
   }
 
   loadSample = () => {

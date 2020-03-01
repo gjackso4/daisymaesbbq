@@ -15,8 +15,10 @@
     "react-dom": "^16.3.0-alpha.1",
     "react-router-dom": "^4.2.2",
     "react-stripe-checkout": "^2.6.3",
+    "react-toastify": "^5.5.0",
     "react-transition-group": "^2.2.1",
     "serve": "^6.5.0",
+    "stripe": "^8.22.0",
     "stylus": "0.54.5"
   },
   "scripts": {

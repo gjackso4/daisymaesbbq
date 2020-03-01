@@ -1,9 +1,46 @@
 import React from 'react';
 import { formatPrice } from '../helpers';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import StripeCheckout from 'react-stripe-checkout';
+
 
 class Order extends React.Component {
+
+
+  placeOrder = (total, items) => {
+    // Publishable Key from Stripe Dashboard
+    const stripe = window.Stripe('pk_test_wBzurxpl5PktrQsfbRXY2yvX007p2GTShY');
+    const paymentBtn = document.getElementById('stripe-payment-btn');
+    let sessionId;
+    let orderData = {
+      currency: 'USD',
+      quantity: 1,
+      amount: total,
+      name: items,
+      image: 'https://daisymaebbq.com/images/logo.jpg'
+    }
+    // Url to Firebase function
+    fetch('https://us-central1-daisymae-bbq.cloudfunctions.net/createOrderAndSession', {
+      method: 'POST',
+      // Adding the order data to payload
+      body: JSON.stringify(orderData)
+    }).then(response => {
+      return response.json();
+    }).then(data => {
+      // Getting the session id from firebase function
+      var body = JSON.parse(data.body);
+      return sessionId = body.sessionId;
+    }).then(sessionId => {
+      // Redirecting to payment form page
+      stripe.redirectToCheckout({
+        sessionId: sessionId
+      }).then(function (result) {
+        result.error.message
+      });
+    });
+
+  }
+
+
 
   renderOrder = (key) => {
     const item = this.props.item[key];
@@ -37,15 +74,21 @@ class Order extends React.Component {
           </span>
         </span>
       </li></CSSTransition>;
+
   }
+
+
 
   render() {
 
     const orderIds = Object.keys(this.props.order);
 
+
     const total = orderIds.reduce((prevTotal, key) => {
       const item = this.props.item[key];
       const count = this.props.order[key];
+
+
 
       const isAvailable = item && item.status === 'available';
       if (isAvailable) {
@@ -55,10 +98,18 @@ class Order extends React.Component {
       }
     }, 0);
 
-    const handleToken = (token, addresses) => {
-      console.log(token),
-        console.log(addresses)
-    }
+    const itemList = orderIds.reduce((prevArray, key) => {
+      const item = this.props.item[key];
+      const count = this.props.order[key];
+
+      const isAvailable = item && item.status === 'available';
+      if (isAvailable) {
+        return prevArray + (`${count} ${item.name}, `);
+      } else {
+        return prevArray;
+      }
+    }, '');
+
 
     return (
       <div className="order-wrap">
@@ -73,7 +124,8 @@ class Order extends React.Component {
             <strong>{formatPrice(total)}</strong>
           </span>
         </div>
-        <StripeCheckout stripeKey="pk_test_wBzurxpl5PktrQsfbRXY2yvX007p2GTShY" token={handleToken} billingAddress amount={total} />
+        <br />
+        <button disabled={!itemList} id="stripe-payment-btn" onClick={() => this.placeOrder(total, itemList)}>Checkout with Credit Card</button>
       </div>
     )
   }

@@ -4,6 +4,7 @@
     background-size: cover;
     height: 100vh;
 }
+
 .right-align {
   display: flex;
   justify-content: space-between;
@@ -366,6 +367,17 @@ header.top h3:after {
   position: relative;
   height: 100vh;
 }
+@media (max-width: 1000px) {
+  .daisy-maes {
+    flex-direction: column;
+    height: auto;
+  }
+  .order-wrap {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
 .daisy-maes > * {
   -webkit-box-flex: 1;
       -ms-flex: 1 4 auto;
@@ -378,7 +390,7 @@ header.top h3:after {
   transition: all 0.3s;
   -webkit-box-shadow: 0 5px 5px rgba(0,0,0,0.1);
           box-shadow: 0 5px 5px rgba(0,0,0,0.1);
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 
@@ -537,21 +549,34 @@ input[type=submit] {
   padding: 1rem;
 }
 
-.StripeCheckout {
+
+.StripeCheckout, #stripe-payment-btn {
   width: 100%;
   text-transform: uppercase!important;
   border-radius: 0!important;
   background: none!important;
   font-family: 'Catamaran' !important;
-  border: 1px solid #000!important;
+  border: 1px solid #000;
   font-weight: 600!important;
   font-size: 1.5rem!important;
   -webkit-transition: all 0.2s!important;
   transition: all 0.2s!important;
   position: relative!important;
   z-index: 2!important;
-  padding: 1rem!important;
+  text-align: center!important;
+  padding: 1.5rem!important;
+  cursor: pointer;
+  color: #000;
 }
+#stripe-payment-btn:hover:enabled {
+  background: #000!important;
+  color: #fff!important;
+}
+#stripe-payment-btn:disabled {
+  opacity: .4;
+  border: 1px solid grey;
+}
+
 .StripeCheckout span {
   background: none!important;
   color: #000!important;
@@ -559,20 +584,17 @@ input[type=submit] {
   font-weight: 600!important;
   font-size: 1.5rem!important;
 }
-.StripeCheckout:hover span {
-  background: none!important;
-  color: #fff!important;
-}
-button[disabled],
-input[type=submit][disabled] {
+
+.menu-item button[disabled],
+.menu-item input[type=submit][disabled] {
   color: #d12028;
   background: #fff;
   border-color: #d12028;
   -webkit-transform: rotate(-10deg) scale(2) translateX(50%) translateY(-50%);
           transform: rotate(-10deg) scale(2) translateX(50%) translateY(-50%);
 }
-button[disabled]:hover,
-input[type=submit][disabled]:hover {
+.menu-item button[disabled]:hover,
+.menu-item input[type=submit][disabled]:hover {
   color: #d12028;
   cursor: not-allowed;
 }
