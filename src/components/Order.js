@@ -8,7 +8,7 @@ class Order extends React.Component {
 
   placeOrder = (total, items) => {
     // Publishable Key from Stripe Dashboard
-    const stripe = window.Stripe('pk_test_wBzurxpl5PktrQsfbRXY2yvX007p2GTShY');
+    const stripe = window.Stripe('pk_live_IyV5ZUMrBjs96YQYXnDBluep007a9Cmvpd');
     const paymentBtn = document.getElementById('stripe-payment-btn');
     let sessionId;
     let orderData = {
@@ -16,6 +16,7 @@ class Order extends React.Component {
       quantity: 1,
       amount: total,
       name: items,
+      description: items,
       image: 'https://daisymaebbq.com/images/logo.jpg'
     }
     // Url to Firebase function

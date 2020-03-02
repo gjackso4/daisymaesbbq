@@ -4,6 +4,9 @@
     background-size: cover;
     height: 100vh;
 }
+.menu {
+  max-width: 880px;
+}
 
 .right-align {
   display: flex;
@@ -366,11 +369,13 @@ header.top h3:after {
   z-index: 5;
   position: relative;
   height: 100vh;
+  
 }
 @media (max-width: 1000px) {
   .daisy-maes {
     flex-direction: column;
     height: auto;
+    background-color: #000;
   }
   .order-wrap {
     margin-left: 0;
@@ -532,7 +537,6 @@ ul.order li span.count span {
 .menu-item img {
   float: left;
   width: 150px;
-  height: 150px;
   margin-right: 1rem;
 }
 button,

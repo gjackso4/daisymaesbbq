@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors')({ origin: true });
 const express = require('express');
 // Secret Key from Stripe Dashboard
-const stripe = require('stripe')('sk_test_ApW1ZpM1P9AHpDIngcjBC0q100cfCqK057');
+const stripe = require('stripe')('sk_live_4aeJGgg577TT6XOuSRvAfOgb00hWAiJzIB');
 // The function for sending responses
 function send(res, code, body) {
     res.send({
@@ -66,7 +66,6 @@ createOrderAndSessionApp.post('/', (req, res) => {
     try {
         createOrderAndSession(req, res);
     } catch (e) {
-        console.log(e);
         send(res, 500, {
             error: `The server received an unexpected error. Please try again and contact the site admin if the error persists.`,
         });
