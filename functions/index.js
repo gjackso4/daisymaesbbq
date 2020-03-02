@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors')({ origin: true });
 const express = require('express');
 // Secret Key from Stripe Dashboard
-const stripe = require('stripe')('sk_live_4aeJGgg577TT6XOuSRvAfOgb00hWAiJzIB');
+const stripe = require('stripe')('PRIV KEY');
 // The function for sending responses
 function send(res, code, body) {
     res.send({
